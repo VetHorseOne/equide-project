@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import "./Home";
+import React from "react";
+import { Link } from 'react-router-dom';
+import "./Home.css";
 import logo from "../img/logo.png";
 import clinica from "../img/clinica.png";
 import ortopedia from "../img/ortopedia.png";
@@ -14,9 +15,7 @@ import apresentacao2 from "../img/apresentacao2.jpg";
 import apresentacao4 from "../img/apresentacao4.jpg";
 import mariana from "../img/mariana.png";
 import luisa from "../img/luisa.png";
-import eleganteHorse from "../img/eleganthorse.jpg";
-import apresentacao5 from "../img/apresentacao5.jpg";
-import apresentacao6 from "../img/apresentacao6.jpg";
+import Carousel from './Carousel';
 
 const Home = () => {
   return (
@@ -25,12 +24,12 @@ const Home = () => {
       <nav className="navbar">
         <div className="container">
           <div className="logo">
-            <a href="index.html">
+            <Link to="/"> {/* Usando Link para redirecionar para a Home */}
               <img src={logo} alt="logo-marca" />
-            </a>
-            <a href="index.html">
+            </Link>
+            <Link to="/"> {/* Usando Link para redirecionar para a Home */}
               <h3 className="logo-text">EQUIDÉ AV</h3>
-            </a>
+            </Link>
           </div>
           <ul className="nav-links">
             <li>
@@ -49,11 +48,10 @@ const Home = () => {
               <a href="#contato">CONTATO</a>
             </li>
           </ul>
-          <button
-            className="contact-btn"
-            onClick={() => (window.location.href = "Cadastro.html")}
-          >
-            FAÇA SEU AGENDAMENTO
+          <button className="contact-btn">
+            <Link to="/cadastro" style={{ textDecoration: 'none', color: 'inherit' }}>
+              FAÇA SEU AGENDAMENTO
+            </Link>
           </button>
         </div>
       </nav>
@@ -70,11 +68,10 @@ const Home = () => {
               paixão e especialidade. Somos uma comunidade dedicada a compartilhar
               conhecimento sobre a saúde, o bem-estar e o manejo correto dos equinos.
             </p>
-            <button
-              className="join-btn"
-              onClick={() => (window.location.href = "Cadastro.html")}
-            >
-              AGENDE UMA CONSULTORIA
+            <button className="join-btn">
+              <Link to="/cadastro" style={{ textDecoration: 'none', color: 'inherit' }}>
+                AGENDE UMA CONSULTORIA
+              </Link>
             </button>
           </div>
         </section>
@@ -180,22 +177,7 @@ const Home = () => {
       </section>
 
       {/* Carrossel */}
-      <section id="carrossel">
-        <div className="carousel">
-          <div className="carousel-inner">
-            {[eleganteHorse, apresentacao5, apresentacao6, apresentacao4].map(
-              (src, index) => (
-                <div
-                  className={`carousel-slide ${index === 0 ? "active" : ""}`}
-                  key={index}
-                >
-                  <img src={src} alt={`Slide ${index + 1}`} />
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      </section>
+      <Carousel /> {/* Integrando o componente Carousel aqui */}
 
       {/* Rodapé */}
       <footer className="footer">

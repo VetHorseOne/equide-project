@@ -1,24 +1,53 @@
-import React from 'react';
-import './Cadastro.css'; // Estilo modular
-import logo from '../img/logo.png'; // Importa imagem diretamente
+import React, { useState } from 'react'; // Importa useState para gerenciar o estado
+import { Link } from 'react-router-dom'; // Importa Link para navegação
+import './Cadastro.css';
+import logo from '../img/logo.png';
 
 const Cadastro = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        cpf: '',
+        address: '',
+        email: '',
+        subject: '',
+        horseName: '',
+        horseAge: '',
+        horseBreed: '',
+        horseHealth: ''
+    });
+
+    // Função para lidar com as mudanças nos campos do formulário
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value, // Atualiza o estado do formulário
+        });
+    };
+
+    // Função para lidar com o envio do formulário
+    const handleCadastro = (event) => {
+        event.preventDefault(); // Evita o comportamento padrão do formulário
+        console.log('Dados do cadastro:', formData);
+        // Aqui você pode adicionar lógica para enviar os dados a um servidor, por exemplo
+    };
+
     return (
         <div>
             {/* Navbar fixa */}
             <nav className="navbar">
                 <div className="container">
                     <div className="logo">
-                        <a href="index.html">
+                        <Link to="/"> {/* Usando Link para redirecionar para a Home */}
                             <img src={logo} alt="logo-marca" />
-                        </a>
-                        <a href="index.html">
+                        </Link>
+                        <Link to="/"> {/* Usando Link para redirecionar para a Home */}
                             <h3 className="logo-text">EQUIDÉ AV</h3>
-                        </a>
+                        </Link>
                     </div>
                     <ul className="nav-links">
                         <li>
-                            <a href="index.html#home">HOME</a>
+                            <Link to="/">HOME</Link> {/* Usando Link para redirecionar para a Home */}
                         </li>
                         <li>
                             <a href="#contato">CONTATO</a>
@@ -31,12 +60,20 @@ const Cadastro = () => {
             <main className="register-section">
                 <section className="register-container">
                     <h1>Cadastro de Cliente e Cavalo</h1>
-                    <form className="register-form">
+                    <form className="register-form" onSubmit={handleCadastro}>
                         {/* Dados do Cliente */}
                         <fieldset>
                             <legend>Dados do Cliente</legend>
                             <label htmlFor="name">Nome Completo</label>
-                            <input type="text" id="name" name="name" placeholder="Seu nome completo" required />
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Seu nome completo"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                            />
 
                             <label htmlFor="cpf">CPF</label>
                             <input
@@ -44,6 +81,8 @@ const Cadastro = () => {
                                 id="cpf"
                                 name="cpf"
                                 placeholder="Seu CPF"
+                                value={formData.cpf}
+                                onChange={handleChange}
                                 required
                                 pattern="\d{11}"
                                 maxLength="11"
@@ -55,6 +94,8 @@ const Cadastro = () => {
                                 id="address"
                                 name="address"
                                 placeholder="Seu endereço"
+                                value={formData.address}
+                                onChange={handleChange}
                                 required
                             />
 
@@ -64,12 +105,20 @@ const Cadastro = () => {
                                 id="email"
                                 name="email"
                                 placeholder="Seu e-mail"
+                                value={formData.email}
+                                onChange={handleChange}
                                 required
                             />
 
                             <label htmlFor="subject">Assunto</label>
-                            <select id="subject" name="subject" required>
-                                <option value="" disabled selected>
+                            <select
+                                id="subject"
+                                name="subject"
+                                value={formData.subject}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="" disabled>
                                     Selecione o assunto
                                 </option>
                                 <option value="consulta">Consulta</option>
@@ -86,8 +135,10 @@ const Cadastro = () => {
                             <input
                                 type="text"
                                 id="horse-name"
-                                name="horse-name"
-                                placeholder="Nome do cavalo"
+                                name="horseName"
+                                placeholder="Nome do cav alo"
+                                value={formData.horseName}
+                                onChange={handleChange}
                                 required
                             />
 
@@ -95,8 +146,10 @@ const Cadastro = () => {
                             <input
                                 type="number"
                                 id="horse-age"
-                                name="horse-age"
+                                name="horseAge"
                                 placeholder="Idade em anos"
+                                value={formData.horseAge}
+                                onChange={handleChange}
                                 required
                                 min="0"
                             />
@@ -105,22 +158,26 @@ const Cadastro = () => {
                             <input
                                 type="text"
                                 id="horse-breed"
-                                name="horse-breed"
+                                name="horseBreed"
                                 placeholder="Raça do cavalo"
+                                value={formData.horseBreed}
+                                onChange={handleChange}
                                 required
                             />
 
                             <label htmlFor="horse-health">Condições de Saúde</label>
                             <textarea
                                 id="horse-health"
-                                name="horse-health"
+                                name="horseHealth"
                                 placeholder="Descreva condições especiais ou problemas de saúde"
                                 rows="4"
+                                value={formData.horseHealth}
+                                onChange={handleChange}
                             ></textarea>
                         </fieldset>
 
                         {/* Botão de Envio */}
-                        <button type="submit" className="submit-btn" onClick={handleCadastro}>
+                        <button type="submit" className="submit-btn">
                             Concluir Cadastro
                         </button>
                     </form>
