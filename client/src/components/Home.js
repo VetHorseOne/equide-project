@@ -197,23 +197,34 @@ const Home = () => {
               <a href="tel:+5561982858292">(61) 98296-7643</a>
               <h5>M.V Mariana Sousa</h5>
               <div className="footer-socials">
-                <a
-                  href="https://www.instagram.com/equide_av/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i className="fab fa-instagram"></i>
-                </a>
+                <div className="icons">
+                  <a
+                    href="https://www.instagram.com/equide_av/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
           <p>&copy; 2024 Equidé AV. Todos os direitos reservados.</p>
+          {/* Botão do WhatsApp */}
+          <div className="contact-whats">
+            <a
+              href="https://wa.me/554184648989"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whatsapp-link"
+            ></a>
+          </div>
         </div>
       </footer>
     </div>
-  );
+  )
 };
 
 export default Home;

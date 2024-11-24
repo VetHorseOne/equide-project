@@ -136,7 +136,7 @@ const Cadastro = () => {
                                 type="text"
                                 id="horse-name"
                                 name="horseName"
-                                placeholder="Nome do cav alo"
+                                placeholder="Nome do cavalo"
                                 value={formData.horseName}
                                 onChange={handleChange}
                                 required
