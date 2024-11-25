@@ -25,7 +25,7 @@ const Cadastro = () => {
     }));
   };
 
-   // Função para lidar com o envio do formulário
+  // Função para lidar com o envio do formulário
   const handleCadastro = async (e) => {
     e.preventDefault(); // Evita o comportamento padrão do formulário
     console.log('Dados do cadastro:', formData);
@@ -61,6 +61,21 @@ const Cadastro = () => {
     } else {
       alert("Erro no cadastro.");
     }
+  };
+
+  // Função para limpar o formulário
+  const handleClear = () => {
+    setFormData({
+      nome: "",
+      cpf: "",
+      endereco: "",
+      email: "",
+      assunto: "consulta",
+      horseName: "",
+      horseAge: "",
+      horseBreed: "",
+      horseHealth: "",
+    });
   };
 
   return (
@@ -124,7 +139,7 @@ const Cadastro = () => {
                 type="text"
                 id="address"
                 name="endereco"
-                placeholder="Seu endereço"
+                placeholder=" Seu endereço"
                 value={formData.endereco}
                 onChange={handleChange}
                 required
@@ -204,10 +219,21 @@ const Cadastro = () => {
               ></textarea>
             </fieldset>
 
-            {/* Botão de Envio */}
-            <button type="submit" className="submit-btn">
-              Concluir Cadastro
-            </button>
+            {/* Botões de Ação */}
+            <div className="button-group">
+              <button type="button" className="clear-btn" onClick={handleClear}>
+                Limpar
+              </button>
+              <Link to="/listagem">
+                <button type="button" className="list-btn">
+                  Ir para Listagem
+                </button>
+              </Link>
+              <button type="submit" className="submit-btn">
+                Concluir Cadastro
+              </button>
+
+            </div>
           </form>
         </section>
       </main>

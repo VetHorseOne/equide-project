@@ -25,6 +25,7 @@
 body {
     font-family: "Nunito", sans-serif;
     color: var(--cor-texto);
+    background-color: var(--cor-azul-escuro);
 }
 
 .navbar {

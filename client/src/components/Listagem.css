@@ -1,79 +1,99 @@
 section.register-container {
     margin-top: 8rem;
     width: 95%;
-    max-width: 1400px;
+    max-width: 100vw;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     flex-direction: column;
     overflow-x: auto;
-  }
-  
-  .client-table {
+}
+
+.client-table {
     width: 100%;
     border-collapse: collapse;
     background-color: #f4f4f4;
     color: #333;
-    table-layout: auto;
+    table-layout: fixed; /* Garante que as colunas tenham tamanhos fixos */
     margin-top: 1rem;
     margin-bottom: 0;
-    overflow-x: auto;
-  }
-  
-  th, td {
+}
+
+th, td {
     padding: 1rem;
     text-align: left;
     border: 1px solid #ccc;
     color: #333;
     word-wrap: break-word;
-    white-space: nowrap;
+    white-space: normal; /* Permite que o texto quebre em várias linhas */
     overflow: hidden;
-  }
-  
-  th {
+}
+
+th {
     background-color: #333;
     color: #fff;
-  }
-  
-  td {
-    background-color: #eaeaea;
-  }
-  
-  tr:nth-child(even) td {
-    background-color: #d5d5d5;
-  }
-  
-  tr:nth-child(odd) td {
-    background-color: #eaeaea;
-  }
-  
-  @media (max-width: 768px) {
-    section.register-container {
-      padding: 0 1rem;
-      width: 100%;
-      max-width: none;
-    }
-  
-    .client-table {
-      font-size: 0.9rem;
-    }
-  
-    th, td {
-      padding: 0.6rem;
-    }
-  }
-  
+}
 
-  button {
-    background-color: #f44336;
+td {
+    background-color: #eaeaea;
+}
+
+tr:nth-child(even) td {
+    background-color: #d5d5d5;
+}
+
+tr:nth-child(odd) td {
+    background-color: #eaeaea;
+}
+
+@media (max-width: 768px) {
+    section.register-container {
+        padding: 0 1rem;
+        width: 100%;
+        max-width: none;
+    }
+
+    .client-table {
+        font-size: 0.9rem;
+    }
+
+    th, td {
+        padding: 0.6rem;
+    }
+}
+
+/* Estilo dos botões */
+button {
     color: white;
     border: none;
+    min-width: 100px;
     padding: 0.5rem 1rem;
     cursor: pointer;
     border-radius: 5px;
-  }
-  
-  button:hover {
-    background-color: #d32f2f;
-  }
-  
+    margin: 0.2rem 0.5rem; /* Adiciona espaço entre os botões */
+}
+
+button.edit-button {
+    background-color: #2196F3; /* Azul */
+}
+
+button.save-button {
+    background-color: #4CAF50; /* Verde */
+}
+
+button.delete-button {
+    background-color: #f44336; /* Vermelho (mantido) */
+}
+
+button.edit-button:hover {
+    background-color: #1976D2; /* Azul escuro */
+}
+
+button.save-button:hover {
+    background-color: #388E3C; /* Verde escuro */
+}
+
+button.delete-button:hover {
+    background-color: #d32f2f; /* Vermelho escuro */
+}
+

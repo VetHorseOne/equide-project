@@ -6,6 +6,7 @@ import logo from '../img/logo.png';
 const Listagem = () => {
     const [clientes, setClientes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [editingClienteId, setEditingClienteId] = useState(null); // ID do cliente que está sendo editado
 
     useEffect(() => {
         const fetchClientes = async () => {
@@ -51,6 +52,46 @@ const Listagem = () => {
         }
     };
 
+    const handleEditClick = (clienteId) => {
+        setEditingClienteId(clienteId); // Define o cliente que está sendo editado
+    };
+
+    const handleInputChange = (e, clienteId) => {
+        const { name, value } = e.target;
+        setClientes((prevClientes) =>
+            prevClientes.map((cliente) =>
+                cliente.cliente_id === clienteId ? { ...cliente, [name]: value } : cliente
+            )
+        );
+    };
+
+    const handleSaveClick = async (clienteId) => {
+        const clienteToUpdate = clientes.find(cliente => cliente.cliente_id === clienteId);
+        try {
+            const response = await fetch(`http://localhost:3001/atualizar/${clienteId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(clienteToUpdate), // Enviando os dados do cliente atualizado
+            });
+
+            if (!response.ok) {
+                throw new Error(`Erro ao atualizar cliente: ${response.status}`);
+            }
+
+            // Atualiza a lista de clientes após a edição
+            setClientes((prevClientes) =>
+                prevClientes.map((cliente) => (cliente.cliente_id === clienteId ? clienteToUpdate : cliente))
+            );
+
+            alert('Cliente atualizado com sucesso!');
+            setEditingClienteId(null); // Fecha o modo de edição
+        } catch (error) {
+            console.error('Erro ao atualizar cliente:', error);
+            alert('Ocorreu um erro ao atualizar.');
+        }
+    };
 
     return (
         <div>
@@ -99,26 +140,122 @@ const Listagem = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {clientes.map((cliente, index) => (
-                                        <tr key={index}>
-                                            <td>{cliente.cliente_nome}</td> 
-                                            <td>{cliente.cliente_cpf}</td> 
-                                            <td>{cliente.cliente_email}</td> 
-                                            <td>{cliente.cliente_assunto}</td>
-                                            <td>{cliente.cavalo_nome}</td>
-                                            <td>{cliente.idade}</td>
-                                            <td>{cliente.raca}</td> 
-                                            <td>{cliente.condicoes_saude}</td> 
+                                    {clientes.map((cliente) => (
+                                        <tr key={cliente.cliente_id}>
                                             <td>
-                                                <button onClick={() => handleDelete(cliente.cliente_id, cliente.cavalo_id)}>
+                                                {editingClienteId === cliente.cliente_id ? (
+                                                    <input
+                                                        type="text"
+                                                        name="cliente_nome"
+                                                        value={cliente.cliente_nome}
+                                                        onChange={(e) => handleInputChange(e, cliente.cliente_id)}
+                                                    />
+                                                ) : (
+                                                    cliente.cliente_nome
+                                                )}
+                                            </td>
+                                            <td>
+                                                {editingClienteId === cliente.cliente_id ? (
+                                                    <input
+                                                        type="text"
+                                                        name="cliente_cpf"
+                                                        value={cliente.cliente_cpf}
+                                                        onChange={(e) => handleInputChange(e, cliente.cliente_id)}
+                                                    />
+                                                ) : (
+                                                    cliente.cliente_cpf
+                                                )}
+                                            </td>
+                                            <td>
+                                                {editingClienteId === cliente.cliente_id ? (
+                                                    <input
+                                                        type="text"
+                                                        name="cliente_email"
+                                                        value={cliente.cliente_email}
+                                                        onChange={(e) => handleInputChange(e, cliente.cliente_id)}
+                                                    />
+                                                ) : (
+                                                    cliente.cliente_email
+                                                )}
+                                            </td>
+                                            <td>
+                                                {editingClienteId === cliente.cliente_id ? (
+                                                    <input
+                                                        type="text"
+                                                        name="cliente_assunto"
+                                                        value={cliente.cliente_assunto}
+                                                        onChange={(e) => handleInputChange(e, cliente.cliente_id)}
+                                                    />
+                                                ) : (
+                                                    cliente.cliente_assunto
+                                                )}
+                                            </td>
+                                            <td>
+                                                {editingClienteId === cliente.cliente_id ? (
+                                                    <input
+                                                        type="text"
+                                                        name="cavalo_nome"
+                                                        value={cliente.cavalo_nome}
+                                                        onChange={(e) => handleInputChange(e, cliente.cliente_id)}
+                                                    />
+                                                ) : (
+                                                    cliente.cavalo_nome
+                                                )}
+                                            </td>
+                                            <td>
+                                                {editingClienteId === cliente.cliente_id ? (
+                                                    <input
+                                                        type="number"
+                                                        name="idade"
+                                                        value={cliente.idade}
+                                                        onChange={(e) => handleInputChange(e, cliente.cliente_id)}
+                                                    />
+                                                ) : (
+                                                    cliente.idade
+                                                )}
+                                            </td>
+                                            <td>
+                                                {editingClienteId === cliente.cliente_id ? (
+                                                    <input
+                                                        type="text"
+                                                        name="raca"
+                                                        value={cliente.raca}
+                                                        onChange={(e) => handleInputChange(e, cliente.cliente_id)}
+                                                    />
+                                                ) : (
+                                                    cliente.raca
+                                                )}
+                                            </td>
+                                            <td>
+                                                {editingClienteId === cliente.cliente_id
+                                                    ? (
+                                                        <input
+                                                            type="text"
+                                                            name="condicoes_saude"
+                                                            value={cliente.condicoes_saude}
+                                                            onChange={(e) => handleInputChange(e, cliente.cliente_id)}
+                                                        />
+                                                    ) : (
+                                                        cliente.condicoes_saude
+                                                    )}
+                                            </td>
+                                            <td>
+                                                {editingClienteId === cliente.cliente_id ? (
+                                                    <button className="save-button" onClick={() => handleSaveClick(cliente.cliente_id)}>
+                                                        Salvar
+                                                    </button>
+                                                ) : (
+                                                    <button className="edit-button" onClick={() => handleEditClick(cliente.cliente_id)}>
+                                                        Editar
+                                                    </button>
+                                                )}
+                                                <button className="delete-button" onClick={() => handleDelete(cliente.cliente_id, cliente.cavalo_id)}>
                                                     Excluir
                                                 </button>
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
-
-
                             </table>
                         </div>
                     ) : (

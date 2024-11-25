@@ -1,138 +1,64 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Estilização do Grupo de Botões */
+.button-group {
+    display: flex; /* Usar flexbox para alinhar os botões */
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    margin-top: 1rem; /* Margem superior para separar os botões do formulário */
 }
 
-:root {
-    --cor-texto: #ffffff;
-    --cor-cinza-claro: #cfcfcf;
-    --cor-cinza-escuro: #747474;
-    --cor-preta-transparente: rgba(0, 0, 0, 0.459);
+/* Estilização do Grupo de Botões */
+.button-group {
+    display: flex; /* Usar flexbox para alinhar os botões */
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    margin-top: 1rem; /* Margem superior para separar os botões do formulário */
 }
 
-body {
-    font-family: "Nunito", sans-serif;
-    color: var(--cor-texto);
+/* Estilização do Grupo de Botões */
+.button-group {
+    display: flex; /* Usar flexbox para alinhar os botões */
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    margin-top: 1rem; /* Margem superior para separar os botões do formulário */
 }
 
-/* Página de Registro */
-main.register-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--cor-cinza-escuro);
-    /* Ajuste a cor conforme necessário */
-    padding: 2rem;
+/* Botões */
+.button-group button,
+.button-group a button { /* Inclui o botão dentro do Link */
+    margin: 0 0.5rem; /* Adiciona margem lateral para espaçamento */
+    padding: 0.8rem 1.2rem; /* Padding para garantir que o texto não fique cortado */
+    min-width: 120px; /* Define uma largura mínima para os botões */
+    border: none; /* Remove a borda padrão */
+    border-radius: 4px; /* Bordas arredondadas */
+    font-size: 1rem; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    text-align: center; /* Centraliza o texto */
+    transition: background-color 0.2s ease-in-out; /* Efeito de transição ao passar o mouse */
 }
 
-section.register-container {
-    background-color: var(--cor-texto);
-    box-shadow: 0px 4px 10px var(--cor-preta-transparente);
-    border-radius: 8px;
-    padding: 2rem;
-    max-width: 600px;
-    width: 100%;
-    gap: 40px;
-    margin-top: 40px;
-}
-
-h1 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: var(--cor-cinza-escuro);
-    text-align: center;
-}
-
-.register-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-/* Estilização dos Fieldsets */
-fieldset {
-    border: 2px solid var(--cor-texto);
-    border-radius: 8px;
-    padding: 1.5rem;
-}
-
-legend {
-    font-size: 1.2rem;
-    color: var(--cor-cinza-escuro);
-    padding: 0 0.5rem;
-}
-
-/* Estilização de Rótulos e Inputs */
-label {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: var(--cor-cinza-escuro);
-    display: block;
-}
-
-input,
-select,
-textarea {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    border: 1px solid var(--cor-cinza-claro);
-    border-radius: 4px;
-    background-color: var(--cor-texto);
-    transition: border 0.2s ease-in-out;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    outline: none;
-    border: 1px solid #007bff;
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
-}
-
-/* Placeholder */
-input::placeholder,
-textarea::placeholder {
-    color: #aaa;
-}
-
-/* Botão de Envio */
+/* Estilo do Botão de Envio */
 button.submit-btn {
-    background-color: #007bff;
-    color: #fff;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.2s ease-in-out;
+    background-color: #007bff; /* Cor azul */
+    color: #fff; /* Texto branco */
 }
 
 button.submit-btn:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    section.register-container {
-        padding: 1rem;
-    }
+/* Estilo do Botão de Limpar */
+button.clear-btn {
+    background-color: orange; /* Cor laranja */
+    color: #fff; /* Texto branco */
+}
 
-    h1 {
-        font-size: 1.5rem;
-    }
+button.clear-btn:hover {
+    background-color: darkorange; /* Laranja mais escuro ao passar o mouse */
+}
 
-    input,
-    select,
-    textarea {
-        font-size: 0.9rem;
-        padding: 0.6rem;
-    }
+/* Estilo do Botão de Ir para Listagem */
+button.list-btn {
+    background-color: #cfcfcf; /* Cor cinza */
+    color: #747474; /* Texto cinza escuro */
+}
 
-    button.submit-btn {
-        padding: 0.6rem;
-        font-size: 0.9rem;
-    }
+button.list-btn:hover {
+    background-color: #a3a3a3; /* Cinza mais escuro ao passar o mouse */
 }
