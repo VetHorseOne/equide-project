@@ -71,25 +71,30 @@ app.get("/listar", (req, res) => {
   });
 });
 
-app.delete("/excluir/:id", (req, res) => {
-  const clienteId = req.params.id;
-
-  const deleteRelacaoQuery = "DELETE FROM cliente_cavalo WHERE cliente_id = ?";
-  db.query(deleteRelacaoQuery, [clienteId], (err) => {
-    if (err) {
-      return res.status(500).json({ message: "Erro ao excluir relação cliente-cavalo", error: err });
+app.delete('/excluir/:clienteId/:cavaloId', async (req, res) => {
+    const { clienteId, cavaloId } = req.params;
+  
+    try {
+      await db.promise().query(
+        'DELETE FROM cliente_cavalo WHERE cliente_id = ? AND cavalo_id = ?',
+        [clienteId, cavaloId]
+      );
+      await db.promise().query(
+        'DELETE FROM cavalo WHERE id = ?',
+        [cavaloId]
+      );
+      await db.promise().query(
+        'DELETE FROM cliente WHERE id = ?',
+        [clienteId]
+      );
+  
+      res.status(200).send({ message: 'Cliente e cavalo excluídos com sucesso!' });
+    } catch (error) {
+      console.error('Erro ao excluir cliente e cavalo:', error);
+      res.status(500).send({ message: 'Erro ao excluir cliente e cavalo.' });
     }
-
-    const deleteClienteQuery = "DELETE FROM cliente WHERE id = ?";
-    db.query(deleteClienteQuery, [clienteId], (err) => {
-      if (err) {
-        return res.status(500).json({ message: "Erro ao excluir cliente", error: err });
-      }
-
-      res.status(200).json({ message: "Cliente e relação com cavalo excluídos com sucesso!" });
-    });
   });
-});
+  
 
 app.put("/editar/:id", (req, res) => {
   const clienteId = req.params.id;
@@ -121,6 +126,7 @@ app.put("/editar-cavalo/:id", (req, res) => {
     res.status(200).json({ message: "Cavalo editado com sucesso!" });
   });
 });
+
 
 app.listen(3001, () => {
   console.log("Servidor rodando na porta 3001");
