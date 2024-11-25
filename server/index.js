@@ -54,11 +54,13 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/listar", (req, res) => {
-  const query =
-    "SELECT cliente.id AS cliente_id, cliente.nome AS cliente_nome, cavalo.id AS cavalo_id, cavalo.nome AS cavalo_nome, cavalo.idade, cavalo.raca " +
+    const query =
+    "SELECT cliente.id AS cliente_id, cliente.nome AS cliente_nome, cliente.cpf AS cliente_cpf, cliente.endereco AS cliente_endereco, cliente.email AS cliente_email, cliente.assunto AS cliente_assunto, " +
+    "cavalo.id AS cavalo_id, cavalo.nome AS cavalo_nome, cavalo.idade, cavalo.raca, cavalo.condicoes_saude " +
     "FROM cliente " +
     "JOIN cliente_cavalo ON cliente.id = cliente_cavalo.cliente_id " +
     "JOIN cavalo ON cavalo.id = cliente_cavalo.cavalo_id";
+
 
   db.query(query, (err, result) => {
     if (err) {

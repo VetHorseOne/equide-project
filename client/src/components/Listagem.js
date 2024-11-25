@@ -63,19 +63,26 @@ const Listagem = () => {
                 <thead>
                   <tr>
                     <th>Cliente</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                    <th>Assunto</th>
                     <th>Cavalo</th>
                     <th>Idade do Cavalo</th>
                     <th>Raça</th>
+                    <th>Condições de Saúde</th>
                   </tr>
                 </thead>
                 <tbody>
                   {clientes.map((cliente, index) => (
                     <tr key={index}>
                       <td>{cliente.cliente_nome}</td>
+                      <td>{cliente.cliente_cpf}</td>
+                      <td>{cliente.cliente_email}</td>
+                      <td>{cliente.cliente_assunto}</td>
                       <td>{cliente.cavalo_nome}</td>
                       <td>{cliente.idade}</td>
                       <td>{cliente.raca}</td>
-                      
+                      <td>{cliente.condicoes_saude}</td>
                     </tr>
                   ))}
                 </tbody>
