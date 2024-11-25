@@ -7,7 +7,7 @@ const db = mysql.createPool({
   host: "localhost",
   user: "root",
   port: 3306,
-  password: "J&k1l",
+  password: "root",
   database: "equidedb",
 });
 
