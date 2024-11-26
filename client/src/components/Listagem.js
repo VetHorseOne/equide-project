@@ -65,33 +65,55 @@ const Listagem = () => {
         );
     };
 
-    const handleSaveClick = async (clienteId) => {
+    const handleSaveClick = async (clienteId, cavaloId) => {
         const clienteToUpdate = clientes.find(cliente => cliente.cliente_id === clienteId);
+
         try {
-            const response = await fetch(`http://localhost:3001/atualizar/${clienteId}`, {
+            // Atualiza os dados do cliente
+            const clienteResponse = await fetch(`http://localhost:3001/editar/${clienteId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(clienteToUpdate), // Enviando os dados do cliente atualizado
+                body: JSON.stringify({
+                    nome: clienteToUpdate.cliente_nome,
+                    cpf: clienteToUpdate.cliente_cpf,
+                    endereco: clienteToUpdate.cliente_endereco,
+                    email: clienteToUpdate.cliente_email,
+                    assunto: clienteToUpdate.cliente_assunto,
+                }),
             });
 
-            if (!response.ok) {
-                throw new Error(`Erro ao atualizar cliente: ${response.status}`);
+            if (!clienteResponse.ok) {
+                throw new Error(`Erro ao atualizar cliente: ${clienteResponse.status}`);
             }
 
-            // Atualiza a lista de clientes após a edição
-            setClientes((prevClientes) =>
-                prevClientes.map((cliente) => (cliente.cliente_id === clienteId ? clienteToUpdate : cliente))
-            );
+            // Atualiza os dados do cavalo
+            const cavaloResponse = await fetch(`http://localhost:3001/editar-cavalo/${cavaloId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nome: clienteToUpdate.cavalo_nome,
+                    idade: clienteToUpdate.idade,
+                    raca: clienteToUpdate.raca,
+                    condicoes_saude: clienteToUpdate.condicoes_saude,
+                }),
+            });
 
-            alert('Cliente atualizado com sucesso!');
-            setEditingClienteId(null); // Fecha o modo de edição
+            if (!cavaloResponse.ok) {
+                throw new Error(`Erro ao atualizar cavalo: ${cavaloResponse.status}`);
+            }
+
+            alert('Cliente e cavalo atualizados com sucesso!');
+            setEditingClienteId(null); // Sai do modo de edição
         } catch (error) {
-            console.error('Erro ao atualizar cliente:', error);
-            alert('Ocorreu um erro ao atualizar.');
+            console.error('Erro ao atualizar:', error);
+            alert('Ocorreu um erro ao atualizar cliente ou cavalo.');
         }
     };
+
 
     return (
         <div>
@@ -241,14 +263,21 @@ const Listagem = () => {
                                             </td>
                                             <td>
                                                 {editingClienteId === cliente.cliente_id ? (
-                                                    <button className="save-button" onClick={() => handleSaveClick(cliente.cliente_id)}>
+                                                    <button
+                                                        className="save-button"
+                                                        onClick={() => handleSaveClick(cliente.cliente_id, cliente.cavalo_id)}
+                                                    >
                                                         Salvar
                                                     </button>
                                                 ) : (
-                                                    <button className="edit-button" onClick={() => handleEditClick(cliente.cliente_id)}>
+                                                    <button
+                                                        className="edit-button"
+                                                        onClick={() => handleEditClick(cliente.cliente_id)}
+                                                    >
                                                         Editar
                                                     </button>
                                                 )}
+
                                                 <button className="delete-button" onClick={() => handleDelete(cliente.cliente_id, cliente.cavalo_id)}>
                                                     Excluir
                                                 </button>
