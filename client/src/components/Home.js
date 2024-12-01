@@ -15,7 +15,7 @@ import apresentacao2 from "../img/apresentacao2.jpg";
 import apresentacao4 from "../img/apresentacao4.jpg";
 import mariana from "../img/mariana.png";
 import luisa from "../img/luisa.png";
-import Carousel from './Carousel';
+import MySwiper from "./Carousel";
 
 const Home = () => {
   return (
@@ -177,7 +177,7 @@ const Home = () => {
       </section>
 
       {/* Carrossel */}
-      <Carousel /> {/* Integrando o componente Carousel aqui */}
+      <MySwiper /> {/* Integrando o componente Carousel aqui */}
 
       {/* Rodapé */}
       <footer className="footer">

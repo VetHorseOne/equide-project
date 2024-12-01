@@ -1,69 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import './Carousel.css'; // Importa os estilos do carrossel
-
-// Importando as imagens diretamente
+import { register } from 'swiper/element/bundle';
+import React from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+import './Carousel.css'; // Ajuste o caminho se necessário
 import elegantHorse from '../img/eleganthorse.jpg';
-import apresentacao5 from '../img/apresentacao5.jpg';
 import apresentacao6 from '../img/apresentacao6.jpg';
 import apresentacao4 from '../img/apresentacao4.jpg';
+import dressagehorse from '../img/dressagehorse.jpg';
+import apresentacao1 from '../img/apresentacao1.jpg';
 
-const Carousel = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+register();
 
-    // Defina os slides como um array de imagens
-    const slides = [
-        elegantHorse,
-        apresentacao5,
-        apresentacao6,
-        apresentacao4
+function MySwiper() {
+    const data = [
+        { id: '1', imagem: elegantHorse },
+        { id: '2', imagem: apresentacao6 },
+        { id: '3', imagem: apresentacao4 },
+        { id: '4', imagem: dressagehorse },
+        { id: '5', imagem: apresentacao1 },
     ];
 
-    const changeSlide = (index) => {
-        if (index < 0) {
-            index = slides.length - 1; // Vai para o último slide
-        } else if (index >= slides.length) {
-            index = 0; // Volta para o primeiro slide
-        }
-        setCurrentIndex(index);
-    };
-
-    useEffect(() => {
-        const carouselInner = document.querySelector(".carousel-inner");
-        if (carouselInner) {
-            carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
-    }, [currentIndex]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            changeSlide(currentIndex + 1); // Avança para o próximo slide
-        }, 3000);
-        return () => clearInterval(interval); // Limpa o intervalo ao desmontar o componente
-    }, [currentIndex]);
-
     return (
-        <div className="carousel">
-            <div className="carousel-inner">
-                {slides.map((src, index) => (
-                    <div
-                        className={`carousel-slide ${index === currentIndex ? "active" : ""}`}
-                        key={index}
-                    >
-                        <img src={src} alt={`Slide ${index + 1}`} />
-                    </div>
+        <div className='container-slide'>
+            <Swiper
+                slidesPerView={2}
+                spaceBetween={20}
+                pagination={{ clickable: true }}
+                navigation
+                autoplay={{
+                    delay: 4000,
+                    disableOnInteraction: false,
+                }}
+            >
+                {data.map((item) => (
+                    <SwiperSlide key={item.id}>
+                        <img
+                            src={item.imagem}
+                            alt="Slider"
+                            className='slide-item'
+                        />
+                    </SwiperSlide>
                 ))}
-            </div>
-            <div className="carousel-indicators">
-                {slides.map((_, index) => (
-                    <button
-                        key={index}
-                        className={`carousel-indicator ${index === currentIndex ? 'active' : ''}`}
-                        onClick={() => changeSlide(index)}
-                    ></button>
-                ))}
-            </div>
+            </Swiper>
         </div>
     );
-};
+}
 
-export default Carousel;
+export default MySwiper;
